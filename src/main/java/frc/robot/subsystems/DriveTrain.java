@@ -3,17 +3,17 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.Constants.Ports;
 
 public class DriveTrain extends SubsystemBase{
 
-    public final VictorSPX l_motorF = new VictorSPX(Constants.lmotor_port1);
-    public final VictorSPX l_motorB = new VictorSPX(Constants.lmotor_port2);
-    public final VictorSPX r_motorF = new VictorSPX(Constants.rmotor_port1);
-    public final VictorSPX r_motorB = new VictorSPX(Constants.rmotor_port2);
+    public final VictorSPX l_motorF = new VictorSPX(Ports.kLmotor_port1);
+    public final VictorSPX l_motorB = new VictorSPX(Ports.kLmotor_port2);
+    public final VictorSPX r_motorF = new VictorSPX(Ports.kRmotor_port1);
+    public final VictorSPX r_motorB = new VictorSPX(Ports.kRmotor_port2);
     
     public double Lspeed, Rspeed, Px, Py, Px2, Py2, rad, diff, mag;
     public double TriggerVel;
@@ -36,7 +36,7 @@ public class DriveTrain extends SubsystemBase{
     }
 
     public double Deadzone(double val) {
-        if (Math.abs(val) < Constants.deadzone) {return 0;}
+        if (Math.abs(val) < Constants.kDeadzone) {return 0;}
         else {return val;}
     }
 
@@ -80,9 +80,9 @@ public class DriveTrain extends SubsystemBase{
     }
 
     public void SpeedMode(boolean a, boolean b, boolean x) {
-        if (a) velocity = Constants.medSpeed;
-        if (b) velocity = Constants.minSpeed;
-        if (x) velocity = Constants.maxSpeed;
+        if (a) velocity = Constants.kMedSpeed;
+        if (b) velocity = Constants.kMinSpeed;
+        if (x) velocity = Constants.kMaxSpeed;
     }
 
     public void POV() {

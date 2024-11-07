@@ -33,7 +33,8 @@ public class DriveCommand extends Command {
         driveTrain.SpeedMode(
             joy.getRawButton(1), 
             joy.getRawButton(2), 
-            joy.getRawButton(3));
+            joy.getRawButton(3)
+            );
 
         if ((driveTrain.Px == 0 && driveTrain.Py == 0) && (driveTrain.Px2 != 0 || driveTrain.Py2 != 0)) {
             driveTrain.AxiSpeeds(driveTrain.Px2, driveTrain.Py2);

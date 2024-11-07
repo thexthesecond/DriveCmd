@@ -2,12 +2,13 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants.Ports;
 import frc.robot.commands.DriveCommand;
 import frc.robot.subsystems.DriveTrain;
 
 public class RobotContainer {
   public DriveTrain driveTrain = new DriveTrain();
-  public Joystick joy = new Joystick(Constants.JoyPort);
+  public Joystick joy = new Joystick(Ports.kJoyPort);
   public Trigger driveTrigger;
 
   private final DriveCommand driveCommand;
