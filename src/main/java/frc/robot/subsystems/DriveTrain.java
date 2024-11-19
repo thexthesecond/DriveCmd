@@ -3,6 +3,9 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -15,10 +18,10 @@ public class DriveTrain extends SubsystemBase{
     public final VictorSPX r_motorF = new VictorSPX(Ports.kRmotor_port1);
     public final VictorSPX r_motorB = new VictorSPX(Ports.kRmotor_port2);
     
-    public double Lspeed, Rspeed, Px, Py, Px2, Py2, rad, diff, mag;
+    public double Lspeed, Rspeed, rad, diff, mag;
     public double TriggerVel;
     public double velocity = 0.5;
-    public int quad, pov;
+    public int quad;
 
     public DriveTrain() {
         l_motorB.follow(l_motorF);
@@ -85,7 +88,7 @@ public class DriveTrain extends SubsystemBase{
         if (x) velocity = Constants.kMaxSpeed;
     }
 
-    public void POV() {
+    public void POV(int pov) {
         switch (pov) {
             case 0: Lspeed = 1; Rspeed = 1; break;
             case 45: Lspeed = 1; Rspeed = 0; break;

@@ -9,6 +9,8 @@ public class DriveCommand extends Command {
     DriveTrain driveTrain;
     Joystick joy;
     
+    double Px, Py, Px2, Py2;
+    
     public DriveCommand(DriveTrain driveTrain, Joystick joy) {
         this.driveTrain = driveTrain;
         this.joy = joy;
@@ -21,12 +23,10 @@ public class DriveCommand extends Command {
 
     @Override
     public void execute() {
-        driveTrain.Px = driveTrain.Deadzone(joy.getRawAxis(0));
-        driveTrain.Py = driveTrain.Deadzone(-joy.getRawAxis(1));
-        driveTrain.Px2 = driveTrain.Deadzone(-joy.getRawAxis(4));
-        driveTrain.Py2 = driveTrain.Deadzone(joy.getRawAxis(5));
-
-        driveTrain.pov = joy.getPOV();
+        Px = joy.getRawAxis(0);
+        Py = -joy.getRawAxis(1);
+        Px2 = -joy.getRawAxis(4);
+        Py2 = joy.getRawAxis(5);
 
         driveTrain.TriggerVel = joy.getRawAxis(3) - joy.getRawAxis(2);
 
@@ -36,14 +36,14 @@ public class DriveCommand extends Command {
             joy.getRawButton(3)
             );
 
-        if ((driveTrain.Px == 0 && driveTrain.Py == 0) && (driveTrain.Px2 != 0 || driveTrain.Py2 != 0)) {
-            driveTrain.AxiSpeeds(driveTrain.Px2, driveTrain.Py2);
+        if ((Px == 0 && Py == 0) && (Px2 != 0 || Py2 != 0)) {
+            driveTrain.AxiSpeeds(driveTrain.Deadzone(Px2), driveTrain.Deadzone(Py2));
         } else {
-            driveTrain.AxiSpeeds(driveTrain.Px, driveTrain.Py);
+            driveTrain.AxiSpeeds(driveTrain.Deadzone(Px), driveTrain.Deadzone(Py));
         }
 
-        if (driveTrain.pov != -1) {
-            driveTrain.POV();
+        if (joy.getPOV() != -1) {
+            driveTrain.POV(joy.getPOV());
         }
 
         driveTrain.setMotors();
