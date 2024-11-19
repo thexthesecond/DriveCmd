@@ -23,10 +23,10 @@ public class DriveCommand extends Command {
 
     @Override
     public void execute() {
-        Px = joy.getRawAxis(0);
-        Py = -joy.getRawAxis(1);
-        Px2 = -joy.getRawAxis(4);
-        Py2 = joy.getRawAxis(5);
+        Px = driveTrain.Deadzone(joy.getRawAxis(0));
+        Py = -driveTrain.Deadzone(joy.getRawAxis(1));
+        Px2 = -driveTrain.Deadzone(joy.getRawAxis(4));
+        Py2 = driveTrain.Deadzone(joy.getRawAxis(5));
 
         driveTrain.TriggerVel = joy.getRawAxis(3) - joy.getRawAxis(2);
 
@@ -37,9 +37,9 @@ public class DriveCommand extends Command {
             );
 
         if ((Px == 0 && Py == 0) && (Px2 != 0 || Py2 != 0)) {
-            driveTrain.AxiSpeeds(driveTrain.Deadzone(Px2), driveTrain.Deadzone(Py2));
+            driveTrain.AxiSpeeds(Px2, Py2);
         } else {
-            driveTrain.AxiSpeeds(driveTrain.Deadzone(Px), driveTrain.Deadzone(Py));
+            driveTrain.AxiSpeeds(Px, Py);
         }
 
         if (joy.getPOV() != -1) {
